@@ -1,6 +1,7 @@
 import streamlit as st
 from streamlit_chat import message
 import openai
+from openai import api_key
 
 st.set_page_config(
    page_title="Affi | Affidavit Writer",
@@ -9,8 +10,9 @@ st.set_page_config(
    initial_sidebar_state="expanded",
 )
 
-openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
+openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
 
+openai.api_key = openai_api_key
 model = "gpt-4-0613"
 temperature = 0.35
 max_tokens = 928
@@ -95,6 +97,11 @@ if user_input:
   )  
 
   st.session_state['messages'].append({"role": "assistant", "content": response.choices[0].message.content})
+
+if prompt := st.chat_input():
+    if not openai_api_key:
+        st.info("Please add your OpenAI API key to continue.")
+        st.stop()
   
   # Interact with chatbot
 for message in st.session_state['messages'][1:]: 
