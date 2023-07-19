@@ -9,7 +9,7 @@ st.set_page_config(
    initial_sidebar_state="expanded",
 )
 
-openai.api_key = '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'
+openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
 
 model = "gpt-4-0613"
 temperature = 0.35
@@ -75,7 +75,6 @@ st.sidebar.markdown('''
 Affi is a meticulous Affidavit writer who mixes legal knowledge, empathy, and client voice adaptation. She transfrom complex legal ideas into relable narratives and optimizes client outcomes.
 - [Website](https://streamlit.io/)
 
-💡 Add API KEY coming soon...
 ''')
 
 st.sidebar.write('Made by (🛒⨷🦎)')
